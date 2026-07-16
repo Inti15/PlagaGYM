@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-type Overlay = "dark" | "brand" | "soft";
-type Align = "center" | "left";
-type MinHeight = "screen" | "lg";
+export type Overlay = "dark" | "brand" | "soft";
+export type Align = "center" | "left";
+export type MinHeight = "screen" | "lg";
 
 type Props = {
   title: ReactNode;
