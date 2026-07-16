@@ -7,8 +7,8 @@ type Align = "center" | "left";
 type MinHeight = "screen" | "lg";
 
 type Props = {
-  title: string;
-  subtitle?: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
   eyebrow?: string;
   image: string;
   overlay?: Overlay;
