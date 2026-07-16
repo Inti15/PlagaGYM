@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #6b7280;
+  --brand: #003B8B;
+  --brand-light: #0056b3;
+  --brand-dark: #00224A;
+  --soft: #F5F7FA;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: #003B8B;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 0.375rem 0.375rem;
+}
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+/* Inputs base */
+.input {
+  @apply w-full rounded-md border border-brand/20 bg-white px-3 py-2.5 text-sm text-ink placeholder:text-ink/40 focus:border-brand-light focus:outline-none focus:ring-2 focus:ring-brand-light/30;
+}
+
+.label {
+  @apply mb-1.5 block text-sm font-semibold text-ink/80;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-bold transition focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+.btn-primary {
+  @apply btn bg-brand-light text-white hover:bg-brand focus:ring-brand-light;
+}
+.btn-outline {
+  @apply btn border border-brand/30 bg-white text-brand hover:bg-brand-softer focus:ring-brand-light;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+.glass-dark {
+  background: rgba(0, 34, 74, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+/* Hero gradient overlay (subtle blue) */
+.hero-overlay {
+  background: linear-gradient(
+      180deg,
+      rgba(0, 34, 74, 0.65) 0%,
+      rgba(0, 59, 139, 0.55) 50%,
+      rgba(0, 34, 74, 0.75) 100%
+    );
+}
+
+/* Animated radial highlight */
+@keyframes gradient-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-pan {
+  background-size: 200% 200%;
+  animation: gradient-pan 12s ease-in-out infinite;
+}
+
+/* Subtle floating animation for secondary visuals */
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.animate-float-soft {
+  animation: float-soft 6s ease-in-out infinite;
+}
+
+/* Subtle shine across glass cards */
+@keyframes glass-shine {
+  0% {
+    transform: translateX(-120%) skewX(-12deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(220%) skewX(-12deg);
+    opacity: 0;
+  }
+}
+.glass-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 70%
+  );
+  animation: glass-shine 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Subtle Ken Burns zoom for hero background plates */
+@keyframes kenburns {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate3d(0, -1.5%, 0);
+  }
+}
+.animate-kenburns {
+  animation: kenburns 18s ease-in-out infinite alternate;
+}
+
+/* Slower float for stat blocks and similar */
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+/* Reusable hover utilities (kept outside @apply to avoid coupling to Tailwind order) */
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -18px rgba(0, 34, 74, 0.25);
+}
+
+.glow-on-hover {
+  transition: filter 0.25s ease, box-shadow 0.25s ease;
+}
+.glow-on-hover:hover {
+  filter: drop-shadow(0 0 12px rgba(0, 86, 179, 0.45));
+}
+
+/* Pulsing dot used in stat strips */
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.25);
+  }
+}
+.animate-pulse-soft {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
